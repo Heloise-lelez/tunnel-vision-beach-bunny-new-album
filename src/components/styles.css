@@ -1,0 +1,30 @@
+
+footer {
+    margin-top: 15vh;
+    padding: 1vh;
+    background-color: var(--tv-dark-blue);
+}
+
+footer ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+footer li a {
+    color: var(--tv-blue);
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+footer li a:hover {
+    color: #FAFAFA;
+}
+
+footer ul img {
+    height: 1.5rem;
+    width: auto;
+}
