@@ -42,7 +42,8 @@ let imageProperties = {
     drawWidth: 0,
     drawHeight: 0,
 };
-
+let listStickers: string[];
+let numberOfStickers: number = 1;
 let isRotate = false;
 let isFunky = true;
 let backgroundPattern: string
@@ -62,7 +63,6 @@ export function initCanvas() {
 
 function drawTitle() {
     const {x, y, drawWidth, drawHeight} = titleProperties;
-    /*if (ctx && albumTitle) ctx.drawImage(albumTitle, x, y, drawWidth, drawHeight);*/
 
     if (ctx && albumTitle) {
         const newBaseImage = new Image();
@@ -85,7 +85,6 @@ function drawTitle() {
             ctx.drawImage(albumTitle, x, y, drawWidth, drawHeight);
         }
     }
-
 }
 
 export function colorCanvas(mood: string) {
@@ -118,6 +117,11 @@ export function funkyImageCover(value: boolean) {
     redrawEverything()
 }
 
+export function patchStickers(list: string[], number: number) {
+    listStickers = list;
+    numberOfStickers = number
+    redrawEverything();
+}
 
 function drawTitleOnCanvas() {
     if (ctx) {
@@ -147,17 +151,14 @@ function drawTitleOnCanvas() {
             const x = canvas.width - (drawWidth + 50);
             const y = 50;
 
-            // Store the image properties for future use
             titleProperties = { drawWidth, drawHeight, x, y };
-
-            ctx.drawImage(base_image, x, y, drawWidth, drawHeight);
+            ctx?.drawImage(base_image, x, y, drawWidth, drawHeight);
         };
     }
 }
 
 function colorCanvasBackground(mood: string) {
     if (ctx) {
-        // Update the background color
         switch (mood) {
             case "soso":
                 ctx.fillStyle = colors.BLUE;
@@ -220,7 +221,6 @@ export function drawImageOnCanvas(image: string) {
 }
 
 function drawPatternOnBackground(pattern: string) {
-
     switch (pattern) {
         case "waves":
             drawWavesBackground();
@@ -234,7 +234,6 @@ function drawPatternOnBackground(pattern: string) {
         default:
             break
     }
-
 }
 
 function drawCloudsBackground() {
@@ -242,11 +241,11 @@ function drawCloudsBackground() {
         const predefinedColors = [colors["DARK-BLUE"], colors["DARK-PINK"], colors["DARK-YELLOW"], colors["DARK-PURPLE"], colors.BLACK];
 
         for (let i = 0; i <= params["MAX-PATTERN"]; i++) { // Draw 10 rectangles
-            const x = Math.random() * canvas.width; // Random X position
-            const y = Math.random() * canvas.height; // Random Y position
-            const width = Math.random() * 200 + 500; // Random width
-            const height = Math.random() * 50 + 50; // Random height
-            const radius = Math.random() * 50; // Random radius for rounded corners
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const width = Math.random() * 200 + 500;
+            const height = Math.random() * 50 + 50;
+            const radius = Math.random() * 50;
             const color = predefinedColors[Math.floor(Math.random() * predefinedColors.length)];
 
             drawCloud(x, y, width, height, radius, color);
@@ -259,7 +258,6 @@ function drawCloud(x: number, y: number, width: number, height: number, radius: 
         ctx.beginPath();
         ctx.fillStyle = color;
 
-        // Draw a rectangle (use arc for rounded corners if `radius` > 0)
         if (radius > 0) {
             // Rounded rectangle
             ctx.moveTo(x + radius, y);
@@ -282,11 +280,11 @@ function drawWavesBackground() {
     const predefinedColors = [colors["DARK-BLUE"], colors["DARK-PINK"], colors["DARK-YELLOW"], colors["DARK-PURPLE"], colors.BLACK];
 
     for (let i = 0; i < params["MAX-WAVES-PATTERN"]; i++) {
-        const xStart = Math.random() * canvas.width; // Position de départ aléatoire (x)
-        const yStart = Math.random() * canvas.height; // Position de départ aléatoire (y)
-        const waveWidth = Math.random() * 100 + 100; // Largeur de l'onde (50-100)
-        const waveHeight = Math.random() * 20 + 10; // Hauteur de l'onde (10-30)
-        const color = predefinedColors[Math.floor(Math.random() * predefinedColors.length)]; // Couleur aléatoire
+        const xStart = Math.random() * canvas.width;
+        const yStart = Math.random() * canvas.height;
+        const waveWidth = Math.random() * 100 + 100;
+        const waveHeight = Math.random() * 20 + 10;
+        const color = predefinedColors[Math.floor(Math.random() * predefinedColors.length)];
 
         drawWave(xStart, yStart, waveWidth, waveHeight, color);
     }
@@ -301,39 +299,34 @@ function drawWave(x: number, y: number, width: number, height: number, color: st
         ctx.beginPath();
         ctx.moveTo(x, y);
 
-        // Ajoute une courbe ondulée
+        // draw wave
         ctx.bezierCurveTo(
-            x + width / 3, y - height,     // Premier point de contrôle
-            x + (2 * width) / 3, y + height, // Deuxième point de contrôle
-            x + width, y                  // Point d'arrivée
+            x + width / 3, y - height, // 1st
+            x + (2 * width) / 3, y + height, // 2nd
+            x + width, y // end
         );
 
         ctx.stroke();
     }
 }
 
-
-
 function drawFlowersBackground() {
     if (ctx) {
         const gridSize = 5;
         for (let gy = 0; gy < gridSize; gy++) {
             for (let gx = 0; gx < gridSize; gx++) {
-                /*let color = x % 2 !== y % 2 ? "#368f8b" : "#d62246";*/
-
                 const gridWidth = canvas.width / gridSize;
                 const gridHeight = canvas.height / gridSize;
-                const radius = gridWidth * Math.random() * 2;
 
                 const x = gridWidth/4 + gridWidth * gx;
                 const y = gridHeight/4 + gridHeight * gy;
-                drawFlower(ctx, x, y, gridWidth, gridHeight, radius / 2);
+                drawFlower(x, y, gridWidth, gridHeight);
             }
         }
     }
 }
 
-function drawFlower(ctx: any, x: number, y: number, gridWidth: number, gridHeight: number, radius: number) {
+function drawFlower(x: number, y: number, gridWidth: number, gridHeight: number) {
     const base_image = new Image();
     base_image.src = flower;
 
@@ -357,10 +350,115 @@ function drawFlower(ctx: any, x: number, y: number, gridWidth: number, gridHeigh
             drawWidth = (gridHeight * imgAspectRatio) * 3 / 5;
         }
 
-        ctx.drawImage(base_image, x, y, drawWidth, drawHeight);
+        ctx?.drawImage(base_image, x, y, drawWidth, drawHeight);
     };
 }
 
+function drawStickers(stickers: string[], numberOfStickers: number) {
+    const allStickers: string[] = [];
+
+    if (stickers.length === 0 || numberOfStickers <= 0) {
+        return allStickers;
+    }
+
+    for (let i = 0; i < numberOfStickers; i++) {
+        const randomSticker = stickers[Math.floor(Math.random() * stickers.length)];
+        allStickers.push(randomSticker);
+    }
+
+    if (allStickers.length !== 0) {
+        allStickers.forEach((sticker) => {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const size = Math.random() * 40 + 20; // Random size between 20 and 60
+            const angle = Math.random() * Math.PI * 2; // Random rotation
+
+            switch (sticker) {
+                case "bunny":
+                    drawSimpleRabbit(x, y);
+                    break
+                case "star":
+                    drawStar(x, y);
+                    break
+                case "heart":
+                    drawHeart(x, y, size, angle)
+                    break
+                default:
+                    break
+            }
+        });
+
+    }
+}
+
+function drawStar(x: number, y: number) {
+    if (ctx) {
+        const spikes = 5;
+        const outerRadius = 50;
+        const innerRadius = 25;
+        let rotation = Math.PI / 2 * 3; // Point initial (vers le haut)
+        const step = Math.PI / spikes; // Espacement entre les pointes
+
+        ctx.beginPath();
+        ctx.moveTo(x, y - outerRadius);
+
+        for (let i = 0; i < spikes; i++) {
+            const xOuter = x + Math.cos(rotation) * outerRadius;
+            const yOuter = y + Math.sin(rotation) * outerRadius;
+            ctx.lineTo(xOuter, yOuter);
+
+            rotation += step;
+
+            const xInner = x + Math.cos(rotation) * innerRadius;
+            const yInner = y + Math.sin(rotation) * innerRadius;
+            ctx.lineTo(xInner, yInner);
+
+            rotation += step;
+        }
+
+        ctx.closePath();
+        ctx.fillStyle = colors["DARK-PURPLE"];
+        ctx.fill();
+    }
+
+}
+
+function drawSimpleRabbit(x: number, y: number) {
+    // Draw bunny ears
+    drawOval(x-25, y-50, 20, 50, 157, 0, Math.PI * 2); // Oreille gauche
+    drawOval(x+25, y-50, 20, 50, -25, 0, Math.PI * 2); // Oreille droite
+
+    // Draw bunny face
+    drawOval(x, y, 50, 40, 0, 0, Math.PI * 2); // Tête
+}
+
+function drawOval(x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number) {
+    if (ctx) {
+        ctx.beginPath();
+        ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
+        ctx.fillStyle = colors["DARK-PINK"];
+        ctx.fill();
+    }
+}
+
+function drawHeart(x: number, y: number, size: number, angle: number = 0) {
+    if (ctx) {
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(angle);
+
+        ctx.beginPath();
+        ctx.arc(-size / 2, -size / 2, size / 2, Math.PI, 0, false);
+        ctx.arc(size / 2, -size / 2, size / 2, Math.PI, 0, false);
+        ctx.lineTo(0, size / 1.5);
+        ctx.closePath();
+
+        ctx.fillStyle = colors["DARK-BLUE"];
+        ctx.fill();
+
+        ctx.restore();
+    }
+}
 
 export function redrawEverything() {
     if (ctx) {
@@ -368,126 +466,10 @@ export function redrawEverything() {
         if (backgroundMood) colorCanvasBackground(backgroundMood);
         if (backgroundPattern) drawPatternOnBackground(backgroundPattern);
         setTimeout(() => {
+            console.log(listStickers, numberOfStickers)
+            if (listStickers && numberOfStickers) drawStickers(listStickers, numberOfStickers)
             if (albumImage) drawImageCover();
             if (albumTitle) drawTitle();
         }, 200)
     }
 }
-
-
-/*function initCanvas () {
-    const pane = new Pane();
-
-    const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-    const ctx = canvas.getContext("2d");
-
-    const width = canvas.clientWidth * 2;
-    const height = canvas.clientHeight * 2
-
-    canvas.width = width;
-    canvas.height = height;
-
-    const params = {
-        "grid-size": 10,
-        "is-random-size": false,
-        "is-blur": false
-    }
-
-    pane.addBinding(params, "grid-size", {min: 1, max: 10, step: 1})
-        .on("change", () => {
-            drawGrid()
-        });
-
-    pane.addBinding(params, "is-random-size")
-        .on("change", () => {
-            drawGrid()
-        });
-
-    pane.addBinding(params, "is-blur")
-        .on("change", () => {
-            drawGrid()
-        });
-
-    const drawGrid = () => {
-        if (!ctx) return
-        ctx.clearRect(0, 0, width, height)
-        let gridSize = params["grid-size"]
-        for (let y = 0; y < gridSize; y++) {
-            for (let x = 0; x < gridSize; x++) {
-                /!*let color = x % 2 !== y % 2 ? "#368f8b" : "#d62246";*!/
-                let red = Math.floor(255 - 42.5 * y);
-                let green = Math.floor(255 - 42.5 * x);
-                let blue = Math.floor(Math.random() * 250);
-                let color = `rgb(${red},${green},${blue})`;
-
-                let gridWidth = width / gridSize;
-                let gridHeight = height / gridSize;
-                let radius = params["is-random-size"] ? gridWidth * Math.random() * 2 : gridWidth / 2;
-
-                let gridX = gridWidth/2 + gridWidth * x;
-                let gridY = gridHeight/2 + gridHeight * y;
-                if (x % 2 === 0) {
-                    drawCircle(ctx, color, gridX, gridY, radius / 2);
-                } else if (y % 2 === 0) {
-                    drawSimpleRabbit(ctx, gridX, gridY);
-                } else {
-                    drawStar(ctx, gridX, gridY, 5, 50, 25)
-                }
-            }
-        }
-    }
-
-    const drawCircle = (ctx: any, color: string, gridX: number, gridY: number, radius: number) => {
-        ctx.beginPath();
-        ctx.fillStyle = color;
-        ctx.arc(gridX, gridY, radius, 0, Math.PI * 2);
-        if (params["is-blur"]) {
-            ctx.filter = `blur(${Math.floor(Math.random() * 50)}px)`
-        }
-        ctx.fill();
-    }
-
-    const drawStar = (ctx: any, x: number, y: number, spikes: number, outerRadius: number, innerRadius: number) => {
-        let rotation = Math.PI / 2 * 3; // Point initial (vers le haut)
-        let step = Math.PI / spikes; // Espacement entre les pointes
-
-        ctx.beginPath();
-        ctx.moveTo(x, y - outerRadius);
-
-        for (let i = 0; i < spikes; i++) {
-            let xOuter = x + Math.cos(rotation) * outerRadius;
-            let yOuter = y + Math.sin(rotation) * outerRadius;
-            ctx.lineTo(xOuter, yOuter);
-
-            rotation += step;
-
-            let xInner = x + Math.cos(rotation) * innerRadius;
-            let yInner = y + Math.sin(rotation) * innerRadius;
-            ctx.lineTo(xInner, yInner);
-
-            rotation += step;
-        }
-
-        ctx.closePath();
-        ctx.fillStyle = "gold"; // Couleur de remplissage
-        ctx.fill();
-        ctx.strokeStyle = "black"; // Couleur du contour
-        ctx.lineWidth = 2;
-    }
-
-    const drawSimpleRabbit = (ctx: any, x: number, y: number) => {
-        // Dessin des oreilles
-        drawOval(ctx, x-25, y-50, 20, 50, 157, 0, Math.PI * 2, "#D9D9D9"); // Oreille gauche
-        drawOval(ctx, x+25, y-50, 20, 50, -25, 0, Math.PI * 2, "#D9D9D9"); // Oreille droite
-
-        // Dessin de la tête
-        drawOval(ctx, x, y, 50, 40, 0, 0, Math.PI * 2, "#D9D9D9"); // Tête
-    }
-
-    const drawOval = (ctx: any, x: number, y: number, radiusX: number, radiusY: number, rotation: number, startAngle: number, endAngle: number, color: string) => {
-        ctx.beginPath();
-        ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
-        ctx.fillStyle = color;
-        ctx.fill();
-    }
-}*/

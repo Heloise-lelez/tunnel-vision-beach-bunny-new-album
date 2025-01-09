@@ -4,7 +4,7 @@ import {
     drawBackgroundPattern,
     drawImage,
     funkyImageCover,
-    initCanvas,
+    initCanvas, patchStickers,
     rotateAlbumTitle
 } from "./canvas.ts";
 
@@ -19,12 +19,14 @@ import flower from '../assets/form/flower2.png';
 
 import heart from '../assets/form/heart.png';
 import bunny from '../assets/form/bunny.png';
-import star from '../assets/form/motel.png';
+import star from '../assets/form/star.png';
+/*
 import sparkle from '../assets/form/honeymoon.png';
 import ballon from '../assets/form/basket.png';
 import snail from '../assets/form/cake.png';
 import bandage from '../assets/form/bandage.png';
 import bird from '../assets/form/bird.png';
+*/
 
 import cake from '../assets/form/cake.png';
 import suitcase from '../assets/form/suitcase.png';
@@ -65,7 +67,8 @@ function AlbumPersonalized() {
             stick = stickers.filter((element) => element !== image);
         }
 
-        setStickers(stick); // Update the state
+        setStickers(stick);
+        patchStickers(stick, parseInt(stickersCount));
     };
 
     const choseImage = (primaryImage: string) => {
@@ -125,6 +128,7 @@ function AlbumPersonalized() {
                                  style={{opacity: stickers.includes("bunny") ? 1 : 0.5}}><img src={bunny} alt=""/></div>
                             <div onClick={() => choseStickers("star")}
                                  style={{opacity: stickers.includes("star") ? 1 : 0.5}}><img src={star} alt=""/></div>
+{/*
                             <div onClick={() => choseStickers("sparkle")}
                                  style={{opacity: stickers.includes("sparkle") ? 1 : 0.5}}><img src={sparkle} alt=""/>
                             </div>
@@ -138,12 +142,16 @@ function AlbumPersonalized() {
                             </div>
                             <div onClick={() => choseStickers("bird")}
                                  style={{opacity: stickers.includes("bird") ? 1 : 0.5}}><img src={bird} alt=""/></div>
+*/}
                         </div>
                     </div>
                     <div className="category-container input-wrapper">
                         <h3>Number of stickers</h3>
                         <input type="range" min="1" max="10" value={stickersCount}
-                               onChange={(e) => setStickersCount(e.target.value)}/>
+                               onChange={(e) => {
+                                   setStickersCount(e.target.value)
+                                   patchStickers(stickers, parseInt(e.target.value))
+                               }}/>
                     </div>
                     <div className="category-container input-wrapper">
                         <h3>Title random rotation</h3>
