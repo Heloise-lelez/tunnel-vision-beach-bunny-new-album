@@ -24,9 +24,3 @@
   --pq-purple: #C181CB;
   --pq-dark-purple: #A290BD;
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}

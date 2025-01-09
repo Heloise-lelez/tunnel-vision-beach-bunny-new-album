@@ -1,4 +1,12 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {
+    colorCanvas,
+    drawBackgroundPattern,
+    drawImage,
+    funkyImageCover,
+    initCanvas,
+    rotateAlbumTitle
+} from "./canvas.ts";
 
 // images
 import soso from '../assets/form/soso.png';
@@ -7,7 +15,7 @@ import sohappy from '../assets/form/sohappy.png';
 
 import wave from '../assets/form/wave.svg';
 import cloud from '../assets/form/cloud.svg';
-import flower from '../assets/form/flower3.png';
+import flower from '../assets/form/flower2.png';
 
 import heart from '../assets/form/heart.png';
 import bunny from '../assets/form/bunny.png';
@@ -25,20 +33,27 @@ import honeymoon from '../assets/form/honeymoon.png';
 import basket from '../assets/form/basket.png';
 
 function AlbumPersonalized() {
-    const [mood, setMood] = useState("happy");
+    const [mood, setMood] = useState("");
     const [background, setBackground] = useState("")
     const [stickers, setStickers] = useState<string[]>([])
     const [stickersCount, setStickersCount] = useState("0")
     const [rotateTitle, setRotateTitle] = useState(false)
-    const [funkyLetters, setFunkyLetters] = useState(false)
+    const [funkyLetters, setFunkyLetters] = useState(true)
     const [image, setImage] = useState("")
 
+    useEffect(() => {
+        initCanvas();
+        colorCanvas(mood);
+    }, []);
 
-    const choseMood = (mood: string) => {
-        setMood(mood)
+    const choseMood = (colorMood: string) => {
+        if (mood === colorMood) return
+        setMood(colorMood);
+        colorCanvas(colorMood);
     }
-    const choseBackground = (image: string) => {
-        setBackground(image)
+    const choseBackgroundPattern = (image: string) => {
+        setBackground(image);
+        drawBackgroundPattern(image);
     }
     const choseStickers = (image: string) => {
         const isSelected = stickers.includes(image);
@@ -52,18 +67,11 @@ function AlbumPersonalized() {
 
         setStickers(stick); // Update the state
     };
-    const choseImage = (image: string) => {
-        setImage(image)
-    }
 
-    const addToCart = () => {
-        console.log(mood)
-        console.log(background)
-        console.log(stickers)
-        console.log(stickersCount)
-        console.log(rotateTitle)
-        console.log(funkyLetters)
-        console.log(image)
+    const choseImage = (primaryImage: string) => {
+        if (image === primaryImage) return
+        setImage(primaryImage);
+        drawImage(primaryImage);
     }
 
     return (
@@ -77,7 +85,7 @@ function AlbumPersonalized() {
                 <section className="section-left">
                     <div>
                         <canvas id="canvas"></canvas>
-                        <div className="submit-button" onClick={() => addToCart()}>
+                        <div className="submit-button">
                             Add to the cart
                         </div>
                     </div>
@@ -99,11 +107,11 @@ function AlbumPersonalized() {
                     <div className="category-container">
                         <h3>Background image</h3>
                         <div className="images-container background-images">
-                            <div onClick={() => choseBackground("wave")}
-                                 style={{opacity: background === "wave" ? 1 : 0.5}}><img src={wave} alt=""/></div>
-                            <div onClick={() => choseBackground("cloud")}
-                                 style={{opacity: background === "cloud" ? 1 : 0.5}}><img src={cloud} alt=""/></div>
-                            <div onClick={() => choseBackground("flowers")}
+                            <div onClick={() => choseBackgroundPattern("waves")}
+                                 style={{opacity: background === "waves" ? 1 : 0.5}}><img src={wave} alt=""/></div>
+                            <div onClick={() => choseBackgroundPattern("clouds")}
+                                 style={{opacity: background === "clouds" ? 1 : 0.5}}><img src={cloud} alt=""/></div>
+                            <div onClick={() => choseBackgroundPattern("flowers")}
                                  style={{opacity: background === "flowers" ? 1 : 0.5}}><img src={flower} alt=""/>
                             </div>
                         </div>
@@ -140,12 +148,18 @@ function AlbumPersonalized() {
                     <div className="category-container input-wrapper">
                         <h3>Title random rotation</h3>
                         <input type="checkbox" checked={rotateTitle}
-                               onChange={(e) => setRotateTitle(e.target.checked)}/>
+                               onChange={(e) => {
+                                   setRotateTitle(e.target.checked)
+                                   rotateAlbumTitle(e.target.checked)
+                               }}/>
                     </div>
                     <div className="category-container input-wrapper">
                         <h3>Title funky letters</h3>
                         <input type="checkbox" checked={funkyLetters}
-                               onChange={(e) => setFunkyLetters(e.target.checked)}/>
+                               onChange={(e) => {
+                                   setFunkyLetters(e.target.checked)
+                                   funkyImageCover(e.target.checked)
+                               }}/>
                     </div>
                     <div className="category-container">
                         <h3>Primary image</h3>
