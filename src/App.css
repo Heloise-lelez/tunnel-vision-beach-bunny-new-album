@@ -18,11 +18,10 @@ body {
   }
 }
 .scrollDown {
-  width: 100%;
+  height: fit-content;
   display: flex;
   justify-content: flex-end;
-  transform: translateY(-70px);
-  padding: 0 32px;
+  /* transform: translateY(-70px); */
 }
 .scrollDown button {
   rotate: -10deg;
@@ -111,6 +110,23 @@ body {
   height: 100%;
 }
 
+.cake {
+  display: flex;
+  width: 360px;
+
+  img {
+    flex: 1 1 auto;
+  }
+}
+
+.bottom_elements {
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateY(-224px);
+}
+
 .gap {
   height: 100vh;
 }
@@ -146,6 +162,9 @@ body {
 
   .newAlbum {
     transform: translate(0, 70%);
+    img {
+      width: 70%;
+    }
   }
 
   .scrollDown {
@@ -154,5 +173,20 @@ body {
   }
   .scrollDown button {
     margin: 40px;
+  }
+  .bottom_elements {
+    padding: 0 8px;
+    align-items: flex-end;
+    transform: translateY(-36px);
+    flex-direction: column-reverse;
+  }
+  .cake {
+    width: 229px;
+  }
+
+  .scrollDown button {
+    margin: 30px 20px;
+    padding: 16px;
+    font-size: 20px;
   }
 }

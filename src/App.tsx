@@ -6,6 +6,7 @@ import snail1 from "./assets/Snail-1.svg";
 import glitters from "./assets/glitters.svg";
 import balloons from "./assets/balloons.svg";
 import newAlbum from "./assets/newAlbumSoon.svg";
+import cake from "./assets/cake.png";
 import {
   useRive,
   Layout,
@@ -117,8 +118,13 @@ function App() {
       <div className="title">
         <RiveDemo />
       </div>
-      <div className="scrollDown">
-        <button>Click here to create your own album cover!</button>
+      <div className="bottom_elements">
+        <div className="cake">
+          <img src={cake} alt="a cake with the album release date : 14.02 " />
+        </div>
+        <div className="scrollDown">
+          <button>Click here to create your own album cover!</button>
+        </div>
       </div>
       <div className="gap" />
       <Footer />
