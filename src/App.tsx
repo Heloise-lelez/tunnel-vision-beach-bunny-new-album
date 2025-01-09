@@ -1,4 +1,3 @@
-import "destyle.css";
 import Footer from "./components/Footer.tsx";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import snailGuy from "./assets/snail-guy.svg";
@@ -18,6 +17,7 @@ import {
 import "./App.css";
 import { useEffect, useState } from "react";
 import { About } from "./components/About/About.tsx";
+import AlbumPersonalized from "./components/AlbumPersonalized.tsx";
 export const RiveDemo = () => {
   const [scrollPercentage, setScrollPercentage] = useState(0); // Etat pour stocker le pourcentage du scroll
 
@@ -127,7 +127,7 @@ function App() {
           <button>Click here to create your own album cover!</button>
         </div>
       </div>
-      <div className="gap" />
+      <AlbumPersonalized />
       <div>
         <About />
       </div>
