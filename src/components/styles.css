@@ -142,6 +142,9 @@ footer ul img {
     height: auto;
   }
 
+  .section-left {
+    padding-bottom: 100px;
+  }
   .section-left div {
     position: relative;
   }

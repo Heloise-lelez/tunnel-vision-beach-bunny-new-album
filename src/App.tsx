@@ -47,7 +47,7 @@ export const RiveDemo = () => {
     const onScroll = () => {
       const scrollPercentage = Math.round(
         (window.scrollY /
-          (document.documentElement.scrollHeight - window.innerHeight)) *
+          (document.documentElement.scrollHeight - window.innerHeight * 3)) *
           100
       );
       setScrollPercentage(scrollPercentage); // Mettre à jour l'état
