@@ -1,25 +1,26 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import {
-    colorCanvas,
-    drawBackgroundPattern,
-    drawImage,
-    funkyImageCover,
-    initCanvas, patchStickers,
-    rotateAlbumTitle
+  colorCanvas,
+  drawBackgroundPattern,
+  drawImage,
+  funkyImageCover,
+  initCanvas,
+  patchStickers,
+  rotateAlbumTitle,
 } from "./canvas.ts";
 
 // images
-import soso from '../assets/form/soso.png';
-import happy from '../assets/form/happy.png';
-import sohappy from '../assets/form/sohappy.png';
+import soso from "../assets/form/soso.png";
+import happy from "../assets/form/happy.png";
+import sohappy from "../assets/form/sohappy.png";
 
-import wave from '../assets/form/wave.svg';
-import cloud from '../assets/form/cloud.svg';
-import flower from '../assets/form/flower2.png';
+import wave from "../assets/form/wave.svg";
+import cloud from "../assets/form/cloud.svg";
+import flower from "../assets/form/flower2.png";
 
-import heart from '../assets/form/heart.png';
-import bunny from '../assets/form/bunny.png';
-import star from '../assets/form/star.png';
+import heart from "../assets/form/heart.png";
+import bunny from "../assets/form/bunny.png";
+import star from "../assets/form/star.png";
 /*
 import sparkle from '../assets/form/honeymoon.png';
 import ballon from '../assets/form/basket.png';
@@ -28,107 +29,143 @@ import bandage from '../assets/form/bandage.png';
 import bird from '../assets/form/bird.png';
 */
 
-import cake from '../assets/form/cake.png';
-import suitcase from '../assets/form/suitcase.png';
-import motel from '../assets/form/motel.png';
-import honeymoon from '../assets/form/honeymoon.png';
-import basket from '../assets/form/basket.png';
+import cake from "../assets/form/cake.png";
+import suitcase from "../assets/form/suitcase.png";
+import motel from "../assets/form/motel.png";
+import honeymoon from "../assets/form/honeymoon.png";
+import basket from "../assets/form/basket.png";
 
 function AlbumPersonalized() {
-    const [mood, setMood] = useState("");
-    const [background, setBackground] = useState("")
-    const [stickers, setStickers] = useState<string[]>([])
-    const [stickersCount, setStickersCount] = useState("0")
-    const [rotateTitle, setRotateTitle] = useState(false)
-    const [funkyLetters, setFunkyLetters] = useState(true)
-    const [image, setImage] = useState("")
+  const [mood, setMood] = useState("");
+  const [background, setBackground] = useState("");
+  const [stickers, setStickers] = useState<string[]>([]);
+  const [stickersCount, setStickersCount] = useState("0");
+  const [rotateTitle, setRotateTitle] = useState(false);
+  const [funkyLetters, setFunkyLetters] = useState(true);
+  const [image, setImage] = useState("");
 
-    useEffect(() => {
-        initCanvas();
-        colorCanvas(mood);
-    }, []);
+  useEffect(() => {
+    initCanvas();
+    colorCanvas(mood);
+  }, []);
 
-    const choseMood = (colorMood: string) => {
-        if (mood === colorMood) return
-        setMood(colorMood);
-        colorCanvas(colorMood);
-    }
-    const choseBackgroundPattern = (image: string) => {
-        setBackground(image);
-        drawBackgroundPattern(image);
-    }
-    const choseStickers = (image: string) => {
-        const isSelected = stickers.includes(image);
+  const choseMood = (colorMood: string) => {
+    if (mood === colorMood) return;
+    setMood(colorMood);
+    colorCanvas(colorMood);
+  };
+  const choseBackgroundPattern = (image: string) => {
+    setBackground(image);
+    drawBackgroundPattern(image);
+  };
+  const choseStickers = (image: string) => {
+    const isSelected = stickers.includes(image);
 
-        let stick;
-        if (!isSelected) {
-            stick = [...stickers, image];
-        } else {
-            stick = stickers.filter((element) => element !== image);
-        }
-
-        setStickers(stick);
-        patchStickers(stick, parseInt(stickersCount));
-    };
-
-    const choseImage = (primaryImage: string) => {
-        if (image === primaryImage) return
-        setImage(primaryImage);
-        drawImage(primaryImage);
+    let stick;
+    if (!isSelected) {
+      stick = [...stickers, image];
+    } else {
+      stick = stickers.filter((element) => element !== image);
     }
 
-    return (
-        <div>
-            <div className="title-container">
-                <h1>TUNNEL VISION</h1>
-                <h2>Design your custom covers for Beach Bunny's new album with your unique parameters!</h2>
+    setStickers(stick);
+    patchStickers(stick, parseInt(stickersCount));
+  };
+
+  const choseImage = (primaryImage: string) => {
+    if (image === primaryImage) return;
+    setImage(primaryImage);
+    drawImage(primaryImage);
+  };
+
+  return (
+    <div>
+      <div className="title-container">
+        {/* <h1>TUNNEL VISION</h1> */}
+        <h2>
+          Design your custom covers for Beach Bunny's new album with your unique
+          parameters!
+        </h2>
+      </div>
+
+      <div className="canvas-wrapper">
+        <section className="section-left">
+          <div>
+            <canvas id="canvas"></canvas>
+            <div className="submit-button">Add to the cart</div>
+          </div>
+        </section>
+
+        <section className="section-right">
+          <div className="category-container">
+            <h3>Your mood</h3>
+            <div className="images-container">
+              <div
+                onClick={() => choseMood("soso")}
+                style={{ opacity: mood === "soso" ? 1 : 0.5 }}
+              >
+                <img src={soso} alt="" />
+              </div>
+              <div
+                onClick={() => choseMood("happy")}
+                style={{ opacity: mood === "happy" ? 1 : 0.5 }}
+              >
+                <img src={happy} alt="" />
+              </div>
+              <div
+                onClick={() => choseMood("sohappy")}
+                style={{ opacity: mood === "sohappy" ? 1 : 0.5 }}
+              >
+                <img src={sohappy} alt="" />
+              </div>
             </div>
+          </div>
 
-            <div className="canvas-wrapper">
-                <section className="section-left">
-                    <div>
-                        <canvas id="canvas"></canvas>
-                        <div className="submit-button">
-                            Add to the cart
-                        </div>
-                    </div>
-                </section>
-
-                <section className="section-right">
-                    <div className="category-container">
-                        <h3>Your mood</h3>
-                        <div className="images-container">
-                            <div onClick={() => choseMood("soso")} style={{opacity: mood === "soso" ? 1 : 0.5}}><img
-                                src={soso} alt=""/></div>
-                            <div onClick={() => choseMood("happy")} style={{opacity: mood === "happy" ? 1 : 0.5}}>
-                                <img src={happy} alt=""/></div>
-                            <div onClick={() => choseMood("sohappy")}
-                                 style={{opacity: mood === "sohappy" ? 1 : 0.5}}><img src={sohappy} alt=""/></div>
-                        </div>
-                    </div>
-
-                    <div className="category-container">
-                        <h3>Background image</h3>
-                        <div className="images-container background-images">
-                            <div onClick={() => choseBackgroundPattern("waves")}
-                                 style={{opacity: background === "waves" ? 1 : 0.5}}><img src={wave} alt=""/></div>
-                            <div onClick={() => choseBackgroundPattern("clouds")}
-                                 style={{opacity: background === "clouds" ? 1 : 0.5}}><img src={cloud} alt=""/></div>
-                            <div onClick={() => choseBackgroundPattern("flowers")}
-                                 style={{opacity: background === "flowers" ? 1 : 0.5}}><img src={flower} alt=""/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="category-container">
-                        <h3>Stickers</h3>
-                        <div className="images-container">
-                            <div onClick={() => choseStickers("heart")}
-                                 style={{opacity: stickers.includes("heart") ? 1 : 0.5}}><img src={heart} alt=""/></div>
-                            <div onClick={() => choseStickers("bunny")}
-                                 style={{opacity: stickers.includes("bunny") ? 1 : 0.5}}><img src={bunny} alt=""/></div>
-                            <div onClick={() => choseStickers("star")}
-                                 style={{opacity: stickers.includes("star") ? 1 : 0.5}}><img src={star} alt=""/></div>
-{/*
+          <div className="category-container">
+            <h3>Background image</h3>
+            <div className="images-container background-images">
+              <div
+                onClick={() => choseBackgroundPattern("waves")}
+                style={{ opacity: background === "waves" ? 1 : 0.5 }}
+              >
+                <img src={wave} alt="" />
+              </div>
+              <div
+                onClick={() => choseBackgroundPattern("clouds")}
+                style={{ opacity: background === "clouds" ? 1 : 0.5 }}
+              >
+                <img src={cloud} alt="" />
+              </div>
+              <div
+                onClick={() => choseBackgroundPattern("flowers")}
+                style={{ opacity: background === "flowers" ? 1 : 0.5 }}
+              >
+                <img src={flower} alt="" />
+              </div>
+            </div>
+          </div>
+          <div className="category-container">
+            <h3>Stickers</h3>
+            <div className="images-container">
+              <div
+                onClick={() => choseStickers("heart")}
+                style={{ opacity: stickers.includes("heart") ? 1 : 0.5 }}
+              >
+                <img src={heart} alt="" />
+              </div>
+              <div
+                onClick={() => choseStickers("bunny")}
+                style={{ opacity: stickers.includes("bunny") ? 1 : 0.5 }}
+              >
+                <img src={bunny} alt="" />
+              </div>
+              <div
+                onClick={() => choseStickers("star")}
+                style={{ opacity: stickers.includes("star") ? 1 : 0.5 }}
+              >
+                <img src={star} alt="" />
+              </div>
+              {/*
                             <div onClick={() => choseStickers("sparkle")}
                                  style={{opacity: stickers.includes("sparkle") ? 1 : 0.5}}><img src={sparkle} alt=""/>
                             </div>
@@ -143,51 +180,82 @@ function AlbumPersonalized() {
                             <div onClick={() => choseStickers("bird")}
                                  style={{opacity: stickers.includes("bird") ? 1 : 0.5}}><img src={bird} alt=""/></div>
 */}
-                        </div>
-                    </div>
-                    <div className="category-container input-wrapper">
-                        <h3>Number of stickers</h3>
-                        <input type="range" min="1" max="10" value={stickersCount}
-                               onChange={(e) => {
-                                   setStickersCount(e.target.value)
-                                   patchStickers(stickers, parseInt(e.target.value))
-                               }}/>
-                    </div>
-                    <div className="category-container input-wrapper">
-                        <h3>Title random rotation</h3>
-                        <input type="checkbox" checked={rotateTitle}
-                               onChange={(e) => {
-                                   setRotateTitle(e.target.checked)
-                                   rotateAlbumTitle(e.target.checked)
-                               }}/>
-                    </div>
-                    <div className="category-container input-wrapper">
-                        <h3>Title funky letters</h3>
-                        <input type="checkbox" checked={funkyLetters}
-                               onChange={(e) => {
-                                   setFunkyLetters(e.target.checked)
-                                   funkyImageCover(e.target.checked)
-                               }}/>
-                    </div>
-                    <div className="category-container">
-                        <h3>Primary image</h3>
-                        <div className="images-container primary-image">
-                            <div onClick={() => choseImage("cake")} style={{opacity: image === "cake" ? 1 : 0.5}}><img
-                                src={cake} alt=""/></div>
-                            <div onClick={() => choseImage("suitcase")}
-                                 style={{opacity: image === "suitcase" ? 1 : 0.5}}><img src={suitcase} alt=""/></div>
-                            <div onClick={() => choseImage("motel")} style={{opacity: image === "motel" ? 1 : 0.5}}><img
-                                src={motel} alt=""/></div>
-                            <div onClick={() => choseImage("honeymoon")}
-                                 style={{opacity: image === "honeymoon" ? 1 : 0.5}}><img src={honeymoon} alt=""/></div>
-                            <div onClick={() => choseImage("basket")} style={{opacity: image === "basket" ? 1 : 0.5}}>
-                                <img src={basket} alt=""/></div>
-                        </div>
-                    </div>
-                </section>
             </div>
-        </div>
-    )
+          </div>
+          <div className="category-container input-wrapper">
+            <h3>Number of stickers</h3>
+            <input
+              type="range"
+              min="1"
+              max="10"
+              value={stickersCount}
+              onChange={(e) => {
+                setStickersCount(e.target.value);
+                patchStickers(stickers, parseInt(e.target.value));
+              }}
+            />
+          </div>
+          <div className="category-container input-wrapper">
+            <h3>Title random rotation</h3>
+            <input
+              type="checkbox"
+              checked={rotateTitle}
+              onChange={(e) => {
+                setRotateTitle(e.target.checked);
+                rotateAlbumTitle(e.target.checked);
+              }}
+            />
+          </div>
+          <div className="category-container input-wrapper">
+            <h3>Title funky letters</h3>
+            <input
+              type="checkbox"
+              checked={funkyLetters}
+              onChange={(e) => {
+                setFunkyLetters(e.target.checked);
+                funkyImageCover(e.target.checked);
+              }}
+            />
+          </div>
+          <div className="category-container">
+            <h3>Primary image</h3>
+            <div className="images-container primary-image">
+              <div
+                onClick={() => choseImage("cake")}
+                style={{ opacity: image === "cake" ? 1 : 0.5 }}
+              >
+                <img src={cake} alt="" />
+              </div>
+              <div
+                onClick={() => choseImage("suitcase")}
+                style={{ opacity: image === "suitcase" ? 1 : 0.5 }}
+              >
+                <img src={suitcase} alt="" />
+              </div>
+              <div
+                onClick={() => choseImage("motel")}
+                style={{ opacity: image === "motel" ? 1 : 0.5 }}
+              >
+                <img src={motel} alt="" />
+              </div>
+              <div
+                onClick={() => choseImage("honeymoon")}
+                style={{ opacity: image === "honeymoon" ? 1 : 0.5 }}
+              >
+                <img src={honeymoon} alt="" />
+              </div>
+              <div
+                onClick={() => choseImage("basket")}
+                style={{ opacity: image === "basket" ? 1 : 0.5 }}
+              >
+                <img src={basket} alt="" />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
 }
 
-export default AlbumPersonalized
+export default AlbumPersonalized;
