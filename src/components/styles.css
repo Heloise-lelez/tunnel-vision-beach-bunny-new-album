@@ -1,147 +1,148 @@
 .title-container {
-    margin-bottom: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .title-container h1 {
-    font-size: 48px;
+  font-size: 48px;
 }
 
 .title-container h2 {
-    font-family: "Merriweather Sans", serif;
-    font-size: 20px;
-    font-weight: normal;
+  font-family: "Merriweather Sans", serif;
+  font-size: 20px;
+  font-weight: normal;
 }
 
-
 .canvas-wrapper {
-    display: flex;
+  display: flex;
 }
 
 .section-left {
-    position: relative;
-    width: 35vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  width: 35vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .section-left div {
-    position: sticky;
-    top: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
+  position: sticky;
+  top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
 }
 
 #canvas {
-    height: 400px;
-    width: 400px;
-    background-color: #FFFFFF;
-    border-radius: 8px;
-    box-shadow: -10px 10px 0 var(--black);
-    border: 2px solid var(--black);
+  height: 400px;
+  width: 400px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: -10px 10px 0 var(--black);
+  border: 2px solid var(--black);
 }
 
 .submit-button {
-    width: 400px;
-    padding: 12px 24px;
-    background-color: var(--tv-pink);
-    border: 2px solid var(--black);
-    border-radius: 8px;
-    font-family: "Merriweather Sans", serif;
-    font-weight: 400;
-    cursor: pointer;
+  width: 400px;
+  padding: 12px 24px;
+  background-color: var(--tv-pink);
+  border: 2px solid var(--black);
+  border-radius: 8px;
+  font-family: "Merriweather Sans", serif;
+  font-weight: 400;
+  cursor: pointer;
 }
 
 .section-right {
-    padding: 0 24px;
-    width: 65vw;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  padding: 0 24px;
+  width: 65vw;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .category-container {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .input-wrapper {
-    flex-direction: row;
+  flex-direction: row;
 }
 
 .input-wrapper h3 {
-    width: 250px;
+  width: 250px;
 }
 
 .images-container {
-    display: flex;
-    gap: 24px;
+  display: flex;
+  gap: 24px;
 }
 
 .images-container div img {
-    height: 72px;
-    width: auto;
+  height: 72px;
+  width: auto;
 }
 
 .background-images div img {
-    height: 25px;
+  height: 25px;
 }
 
 .primary-image div img {
-    height: 10vw;
+  height: 10vw;
 }
 
-
 footer {
-    margin-top: 15vh;
-    padding: 1vh;
-    background-color: var(--tv-dark-blue);
+  margin-top: 15vh;
+  padding: 1vh;
+  background-color: var(--tv-dark-blue);
 }
 
 footer ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 24px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 0 48px;
 }
 
 footer li a {
-    color: var(--tv-blue);
-    text-decoration: none;
-    font-size: 1.5rem;
-    transition: color 0.3s;
+  color: var(--tv-blue);
+  text-decoration: none;
+  font-size: 1.5rem;
+  transition: color 0.3s;
 }
 
 footer li a:hover {
-    color: #FAFAFA;
+  color: #fafafa;
 }
 
 footer ul img {
-    height: 1.5rem;
-    width: auto;
+  height: 1.5rem;
+  width: auto;
 }
 
-@media screen and (max-width: 480px){
-    .canvas-wrapper {
-        flex-direction: column;
-    }
+@media screen and (max-width: 480px) {
+  .canvas-wrapper {
+    flex-direction: column;
+  }
 
-    .section-left, .section-right {
-        width: 100%;
-        height: auto;
-    }
-    
-    .section-left div {
-        position: relative;
-    }
+  .section-left,
+  .section-right {
+    width: 100%;
+    height: auto;
+  }
+
+  .section-left div {
+    position: relative;
+  }
 }
