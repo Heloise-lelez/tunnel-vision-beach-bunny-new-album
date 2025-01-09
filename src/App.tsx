@@ -17,6 +17,7 @@ import {
 
 import "./App.css";
 import { useEffect, useState } from "react";
+import { About } from "./components/About/About.tsx";
 export const RiveDemo = () => {
   const [scrollPercentage, setScrollPercentage] = useState(0); // Etat pour stocker le pourcentage du scroll
 
@@ -127,6 +128,9 @@ function App() {
         </div>
       </div>
       <div className="gap" />
+      <div>
+        <About />
+      </div>
       <Footer />
     </>
   );
