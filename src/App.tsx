@@ -1,4 +1,6 @@
 import "destyle.css";
+import Footer from "./components/Footer.tsx";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import snailGuy from "./assets/snail-guy.svg";
 import snail1 from "./assets/Snail-1.svg";
 import glitters from "./assets/glitters.svg";
@@ -80,47 +82,32 @@ export const RiveDemo = () => {
   );
 };
 function App() {
+  const [count, setCount] = useState(0)
+
   return (
     <>
-      <div className="stickers">
-        <div className="stickers_side left">
-          <div>
-            <img src={snail1} className="sticker_snail" alt="Un Escargot" />
-          </div>
-          <div>
-            <img
-              src={glitters}
-              className="sticker_item left"
-              alt="Un Escargot"
-            />
-          </div>
-        </div>
-
-        <div className="stickers_side right">
-          <div>
-            <img
-              src={balloons}
-              className="sticker_item right"
-              alt="Un Escargot"
-            />
-          </div>
-          <div>
-            <img src={snailGuy} className="sticker_snail" alt="Un Escargot" />
-          </div>
-        </div>
+      <div>
+        <a href="https://vite.dev" target="_blank">
+          <img src={viteLogo} className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://react.dev" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
       </div>
-      <div className="newAlbum">
-        <img src={newAlbum} className="" alt="New Album Soon!" />
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
       </div>
-      <div className="title">
-        <RiveDemo />
-      </div>
-      <div className="scrollDown">
-        <button>Click here to create your own album cover!</button>
-      </div>
-      <div className="gap" />
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
     </>
-  );
+  )
 }
 
 export default App;

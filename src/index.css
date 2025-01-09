@@ -1,3 +1,32 @@
+@import url("https://use.typekit.net/scn3kll.css");
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 :root {
-  background-color: #e8e4f0;
+  background-color: #E8E4F0;
+  color: #1E1E1E;
+  font-family: "cooper-black-std", serif;
+  font-weight: 400;
+  font-style: normal;
+
+
+  --black: #1E1E1E;
+
+  --tv-yellow: #FFF9B8;
+  --tv-pink: #FDE0E3;
+  --tv-blue: #C2DCEE;
+  --tv-orange: #F6DAC7;
+  --tv-dark-pink: #F8B2BC;
+  --tv-dark-blue: #56A0D1;
+
+  --pq-pink: #FEB8EE;
+  --pq-yellow: #E6E092;
+  --pq-bluish: #7EC8C7;
+  --pq-purple: #C181CB;
+  --pq-dark-purple: #A290BD;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
