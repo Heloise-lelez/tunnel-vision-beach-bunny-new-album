@@ -123,11 +123,13 @@ function App() {
         <div className="cake">
           <img src={cake} alt="a cake with the album release date : 14.02 " />
         </div>
-        <div className="scrollDown">
+        <a className="scrollDown" href="#album">
           <button>Click here to create your own album cover!</button>
-        </div>
+        </a>
       </div>
-      <AlbumPersonalized />
+      <div id="album">
+        <AlbumPersonalized />
+      </div>
       <div>
         <About />
       </div>
